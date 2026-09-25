@@ -55,6 +55,33 @@ shirtDesign.addEventListener('change', (e) => {
     
 });
 
+//------------Activities Section------------------
+
+const activities = document.getElementById('activities');
+//select all the checkbox inputs in the document
+const acticityInput = document.querySelectorAll('input[type="checkbox"]');
+const activityCost = document.getElementById('activities-cost');
+
+//keep track of the cost
+let totalCost = 0;
+
+activities.addEventListener('change', (e) => {
+    if (e.target.type === 'checkbox'){
+        //convert the string to int
+        const eachActivityCost = parseInt(e.target.getAttribute('data-cost'));
+
+        if (e.target.checked){
+            //add activity cost
+            totalCost += eachActivityCost;
+        }else{
+            //subtract activity cost
+            totalCost -= eachActivityCost;
+        }
+
+        activityCost.textContent = `Total: $${totalCost}`;
+    }
+});
+
 
 
 
