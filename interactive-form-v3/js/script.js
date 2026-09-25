@@ -329,3 +329,9 @@ function handleConflictingTimes (selectedActivity){
     }
 }
 
+//------------Real-Time Error Messages------------------
+//checks the name field while user is typing
+nameInput.addEventListener('keyup', () => {
+    validateName();
+});
+
