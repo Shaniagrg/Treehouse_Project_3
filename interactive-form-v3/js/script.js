@@ -67,6 +67,7 @@ let totalCost = 0;
 
 activities.addEventListener('change', (e) => {
     if (e.target.type === 'checkbox'){
+
         //convert the string to int
         const eachActivityCost = parseInt(e.target.getAttribute('data-cost'));
 
@@ -79,6 +80,9 @@ activities.addEventListener('change', (e) => {
         }
 
         activityCost.textContent = `Total: $${totalCost}`;
+
+        //call the conflicting fucntion
+        handleConflictingTimes(e.target);
     }
 });
 
@@ -294,5 +298,34 @@ for (let i = 0; i < activityInput.length; i++){
             focusLabel.classList.remove('focus');
         }
     });
+}
+
+//------------Conflicting Activity Times------------------
+
+function handleConflictingTimes (selectedActivity){
+    const clickedDateTime = selectedActivity.getAttribute('data-day-and-time');
+
+    for (let i = 0; i < activityInput.length; i++){
+        //store the current checkbox
+        const chosenCheckbox = activityInput[i];
+        const currentDateTime = chosenCheckbox.getAttribute('data-day-and-time');
+
+        if (chosenCheckbox !== selectedActivity){
+            if (clickedDateTime === currentDateTime){
+                //get label containing checkbox
+                const activitylabel = chosenCheckbox.parentElement;
+                
+                if(selectedActivity.checked){
+                    //diable conflicting activity
+                    chosenCheckbox.disabled = true;
+                    activitylabel.classList.add('disabled');
+                }else{
+                    //enable when unchecked
+                    chosenCheckbox.disabled = false;
+                    activitylabel.classList.remove('disabled');
+                }
+            }
+        }
+    }
 }
 
