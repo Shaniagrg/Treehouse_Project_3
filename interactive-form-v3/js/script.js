@@ -82,6 +82,8 @@ activities.addEventListener('change', (e) => {
     }
 });
 
+        
+
 //------------Payment Info Section------------------
 
 const payment = document.getElementById('payment');
@@ -276,5 +278,20 @@ form.addEventListener('submit', (e) =>{
 
 });
 
+//Step 8------------The Activities Section------------------
+//loop through all the checkbox for focus and blur
+for (let i = 0; 0 < acticityInput.length; i++){
+    //focus when user tabs on the checkbox
+    acticityInput[i].addEventListener('focus', (e) => {
+        e.target.parentElement.classList.add('focus');
+    });
 
+    //blur when user tabs away from the checkbox
+    acticityInput[i].addEventListener('blur', (e) => {
+        const focusLabel = document.querySelector('.focus');
 
+        if (focusLabel){
+            focusLabel.classList.remove('focus');
+        }
+    });
+}
