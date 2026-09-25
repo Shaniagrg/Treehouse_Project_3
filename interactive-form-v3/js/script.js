@@ -74,7 +74,7 @@ activities.addEventListener('change', (e) => {
             //add activity cost
             totalCost += eachActivityCost;
         }else{
-            //subtract activity cost
+            //subtract activity cost when you de-select
             totalCost -= eachActivityCost;
         }
 
@@ -82,6 +82,38 @@ activities.addEventListener('change', (e) => {
     }
 });
 
+//------------Payment Info Section------------------
+
+const payment = document.getElementById('payment');
+const creditCard = document.getElementById('credit-card');
+const payPal = document.getElementById('paypal');
+const bitCoin = document.getElementById('bitcoin');
+
+//Make the credit card a default option
+payment.value = 'credit-card';
+
+//hide paypal and bitcoin description like its <h3> and <p>
+payPal.style.display = 'none';
+bitCoin.style.display = 'none';
+
+payment.addEventListener('change', (e) => {
+
+    //First hide all the payment section
+    creditCard.style.display = 'none';
+    payPal.style.display = 'none';
+    bitCoin.style.display = 'none';
+
+    if (e.target.value === 'credit-card'){
+        //when user selects credit-card it will show it's description
+        creditCard.style.display = 'block';
+    }else if(e.target.value === 'paypal') {
+        //when user selects paypal it will show it's description 
+        payPal.style.display = 'block';
+    }else if(e.target.value === 'bitcoin'){
+        //when user selects bitcoin it will show it's description
+        bitCoin.style.display = 'block';
+    }
+});
 
 
 
