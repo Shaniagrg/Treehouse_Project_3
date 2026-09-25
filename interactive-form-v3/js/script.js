@@ -115,5 +115,166 @@ payment.addEventListener('change', (e) => {
     }
 });
 
+//------------Form Validation------------------
+
+//show error message if not filled properly
+function showError(element){
+    
+    const parent = element.parentElement;
+    const hint = parent.querySelector('.hint');
+
+    // shows that the field has an error
+    parent.classList.add('not-valid');
+    //remove the "valid" class because the field is not valid
+    parent.classList.remove("valid");
+
+    if (hint){
+        //displays the error message
+        hint.style.display = 'block';
+    }
+}
+
+//Show success message when filled correctly
+function showSuccess(element){
+    
+    const parent = element.parentElement;
+    const hint = parent.querySelector('.hint');
+
+    //shows that the field is correct
+    parent.classList.add('valid');
+    //remove the "not-valid" class because the field is valid
+    parent.classList.remove("not-valid");
+
+    if (hint){
+        //hide the error message
+        hint.style.display = 'none';
+    }
+}
+
+//Validate Name Field
+function validateName(){
+    //remove extra space and check if the name field is empty it will show error
+    if (nameInput.value.trim() === ""){
+        showError(nameInput);
+        return false
+    }else{
+        showSuccess(nameInput);
+        return true;
+    }
+}
+
+//validate Email field
+const emailInput = document.getElementById('email');
+function validateEmail(){
+
+    //Regular expression to check the format of email address
+    //Basic format xyz@gmail.com
+    //source geeksforgeeks.org https://www.geeksforgeeks.org/javascript/javascript-program-to-validate-an-email-address/
+    const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //removes extra spaces
+    const emailValue = emailInput.value.trim();
+
+    // ! runs when the email is invalid
+    if (!email.test(emailValue)){
+        showError(emailInput);
+        return false;
+    }else{
+        showSuccess(emailInput);
+        return true;
+    }
+}
+
+//Validate activities field
+function validateActivities(){
+    const selectedActivities = document.querySelectorAll('input[type="checkbox"]:checked');
+    const activitiesHint = document.getElementById('activities-hint');
+
+    if (selectedActivities.length === 0){
+        activities.classList.add('not-valid');
+        activities.classList.remove('valid');
+        activitiesHint.style.display = "block";
+        return false;
+    }else{
+        activities.classList.add('valid');
+        activities.classList.remove('not-valid');
+        activitiesHint.style.display = "none";
+        return true;
+    }
+}
+
+//Validate credit card field
+const cardNumber = document.getElementById('cc-num')
+function validateCreditCard(){
+    //requires between 13 and 16 digits
+    const creditcardNum = /^\d{13,16}$/;
+    const creditCardValue = cardNumber.value.trim();
+
+    if (!creditcardNum.test(creditCardValue)){
+        showError(cardNumber);
+        return false;
+    }else{
+        showSuccess(cardNumber);
+        return true;
+    }
+}
+
+
+//Validate zip code
+const zipCode = document.getElementById('zip');
+
+function validateZipCode(){
+    //accepts exact 5 gigits
+    const zipPattern = /^\d{5}$/;
+    const zipValue = zipCode.value.trim();
+
+    if(!zipPattern.test(zipValue)){
+        showError(zipCode);
+        return false;
+    }else{
+        showSuccess(zipCode);
+        return true;
+    }
+}
+
+//Validate CVV
+const cvv = document.getElementById('cvv');
+
+function validateCvv(){
+    const cvvPattern = /^\d{3}$/;
+    const cvvValue = cvv.value.trim();
+
+    if(!cvvPattern.test(cvvValue)){
+        showError(cvv);
+        return false;
+    }else{
+        showSuccess(cvv);
+        return true;
+    }
+}
+
+//validate when the submission is detected
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) =>{
+    const nameIsValid = validateName();
+    const emailIsValid  = validateEmail();
+    const activitiesValid = validateActivities();
+
+    let paymentIsValid = true;
+
+    //when credit card is selected validate credit card field 
+    if (payment.value === 'credit-card'){
+        const cardNumberIsValid = validateCreditCard();
+        const zipCodeIsValid  = validateZipCode();
+        const cvvIsValid = validateCvv();
+        
+        paymentIsValid = cardNumberIsValid && zipCodeIsValid && cvvIsValid
+    }
+
+    if(!nameIsValid || !emailIsValid || !activitiesValid || !paymentIsValid){
+        e.preventDefault();
+    }
+
+});
+
 
 
