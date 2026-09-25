@@ -59,7 +59,7 @@ shirtDesign.addEventListener('change', (e) => {
 
 const activities = document.getElementById('activities');
 //select all the checkbox inputs in the document
-const acticityInput = document.querySelectorAll('input[type="checkbox"]');
+const activityInput = document.querySelectorAll('input[type="checkbox"]');
 const activityCost = document.getElementById('activities-cost');
 
 //keep track of the cost
@@ -280,14 +280,14 @@ form.addEventListener('submit', (e) =>{
 
 //Step 8------------The Activities Section------------------
 //loop through all the checkbox for focus and blur
-for (let i = 0; 0 < acticityInput.length; i++){
+for (let i = 0; i < activityInput.length; i++){
     //focus when user tabs on the checkbox
-    acticityInput[i].addEventListener('focus', (e) => {
+    activityInput[i].addEventListener('focus', (e) => {
         e.target.parentElement.classList.add('focus');
     });
 
     //blur when user tabs away from the checkbox
-    acticityInput[i].addEventListener('blur', (e) => {
+    activityInput[i].addEventListener('blur', (e) => {
         const focusLabel = document.querySelector('.focus');
 
         if (focusLabel){
@@ -295,3 +295,4 @@ for (let i = 0; 0 < acticityInput.length; i++){
         }
     });
 }
+
