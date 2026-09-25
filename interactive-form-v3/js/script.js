@@ -179,6 +179,14 @@ function validateEmail(){
     const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     //removes extra spaces
     const emailValue = emailInput.value.trim();
+    
+    const emailHint = document.getElementById('email-hint')
+
+    //call and update function if an error exist
+    const errorMessage = getEmailErrorType(email, emailValue);
+    if(errorMessage){
+        emailHint.textContent = errorMessage;
+    }
 
     // ! runs when the email is invalid
     if (!email.test(emailValue)){
@@ -335,3 +343,17 @@ nameInput.addEventListener('keyup', () => {
     validateName();
 });
 
+
+//------------Conditional Error Message------------------
+
+function getEmailErrorType(email, emailValue){
+    if (emailValue === ""){
+        return "Email field cannot be left blank."
+    }else if (!email.test(emailValue)){
+        //user didn't input in correct format
+        return "Email address must be formatted correctly Eg: name@gmail.com"
+    }
+
+    //if theres no error return null
+    return null;
+}
